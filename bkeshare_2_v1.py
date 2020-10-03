@@ -18,6 +18,7 @@ def get_filters():
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
+        (str) no filter - returns raw data frame
     """
     print('Hello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
@@ -28,7 +29,7 @@ def get_filters():
         city=''
         city=input('For Which city do you want to see the bikeshare data? \n').lower()
 
-    # get user input for month (all, january, february, ... , june)
+    # take the filter option in global parameter asnwer
     global answer
     answers =['monthname','both','nofilter','day']
     answer=input("Enter your filter condtion which can be on the basis of day or monthname or both or nofilter at all, if you want to see raw data\n").lower()
@@ -37,7 +38,7 @@ def get_filters():
         answer=''
         answer=input("Enter your filter condtion which can be on the basis of day or monthname or both or nofilter at all, if you want to see raw data\n").lower()
 
-
+    # get user input for month (all, january, february, ... , june) if user wants to filter by monthname
     if answer == "monthname":
         day=''
         month=input('Enter the abbreviated month name\n').lower()
@@ -49,6 +50,7 @@ def get_filters():
         print('-'*100)
         return city, month, day,answer
 
+    # get user input for month (all, january, february, ... , june) and day of the week, if user wants to filter by both monthname and day of the week
     elif answer == "both":
         month=input('Enter the abbreviated month name \n').lower()
         months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun']
@@ -77,7 +79,7 @@ def get_filters():
         print('-'*100)
         return city, month, day,answer
 
-
+     # get user input for day of the week if user wants to filter by day of the week
     elif answer == "day":
         month=''
         days=[x for x in range(0,32)]
@@ -97,6 +99,7 @@ def get_filters():
 
         print('-'*100)
         return city, month, day,answer
+    # no filter taken
     elif answer == "nofilter":
         day=''
         month=''
