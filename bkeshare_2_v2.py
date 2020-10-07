@@ -4,13 +4,12 @@ import numpy as np
 import datetime as dt
 import operator
 import calendar
+import tableauserverclient as TSC
+from pandleau import *
 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
-
-
-
 
 def get_filters():
 
@@ -25,7 +24,7 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    global city
+
     city=input('For Which city do you want to see the bikeshare data?\n').lower()
     while city not in CITY_DATA:
         print("Sorry! we still have not got any data for {}. Please select from chicago or new york city or washington".format(city))
@@ -151,7 +150,7 @@ def load_data(city, month, day):
 def time_stats(df):
     #Displays statistics on the most frequent times of travel.
     df.size
-    global frq_month,frq_hr,frq_dof
+
     print('\nCalculating The Most Frequent Times of Travel...\n')
 
     start_time = time.time()
@@ -229,11 +228,9 @@ def time_stats(df):
 
 
 
-
-
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
-    global frqSs,frq_es,frq_sscates
+
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
@@ -261,7 +258,7 @@ def station_stats(df):
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
-    global tot_timedur,AVG_timedur
+
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
@@ -282,176 +279,42 @@ def trip_duration_stats(df):
 def user_stats(df):
 
     """Displays statistics on bikeshare users."""
-    global user_types,gender_type,earliest_yob,most_recent_yop,most_common_yob
+
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
     # Display counts of user types
-    if city == 'chicago' or city =='new york city':
-        user_types=df['User Type'].value_counts().idxmax()
-        user_count=df['User Type'].value_counts().max()
 
-        # Display counts of gender
-        gender_type=df['Gender'].value_counts().idxmax()
-        gender_count=df['Gender'].value_counts().max()
+    user_types=df['User Type'].value_counts().idxmax()
+    user_count=df['User Type'].value_counts().max()
 
-        # Display earliest, most recent, and most common year of birth
-        earliest_yob=int(df['Birth Year'].min())
+    # Display counts of gender
+    gender_type=df['Gender'].value_counts().idxmax()
+    gender_count=df['Gender'].value_counts().max()
 
-        most_recent_yop=int(df['Birth Year'].max())
+    # Display earliest, most recent, and most common year of birth
+    earliest_yob=int(df['Birth Year'].min())
 
-        most_common_yob= int(df['Birth Year'].value_counts().idxmax())
-        most_common_yob_count=df['Birth Year'].value_counts().max()
+    most_recent_yop=int(df['Birth Year'].max())
 
-        print('*'*10,"User info",'*'*10)
-        print("Most Common user type: {}".format(user_types))
-        print("Earliest year of birth: {}".format(earliest_yob))
-        print("Most recent year of birth: {}".format(most_recent_yop))
-        print("Most_common year of birth: {} Count:{}".format(most_common_yob,most_common_yob_count))
-        print("\nThis took %s seconds." % (time.time() - start_time))
-        print('-'*100)
+    most_common_yob= int(df['Birth Year'].value_counts().idxmax())
+    most_common_yob_count=df['Birth Year'].value_counts().max()
 
-    elif city =='washington':
-        user_types=df['User Type'].value_counts().idxmax()
-        user_count=df['User Type'].value_counts().max()
-        print('*'*10,"User info",'*'*10)
-        print("Most Common user type: {}".format(user_types))
-        print("\nThis took %s seconds." % (time.time() - start_time))
-        print('-'*100)
+    print('*'*10,"User info",'*'*10)
+    print("Earliest year of birth: {}".format(earliest_yob))
+    print("Most recent year of birth: {}".format(most_recent_yop))
+    print("Most_common year of birth: {} Count:{}".format(most_common_yob,most_common_yob_count))
 
-
-def calc_df():
-    if city == 'chicago' or city =='new york city':
-        if answer == 'both':
-            calc_dict={'CITY':city,'Frequent month':frq_month,
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':frq_dof,
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types,
-            'Frequent gender type':gender_type,
-            'Earliestt year of birth':earliest_yob,
-            'Most recent year of birth':most_recent_yop,
-            'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
-
-        elif answer =='day':
-            calc_dict={'CITY':city,'Frequent month':'NA',
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':frq_dof,
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types,
-            'Frequent gender type':gender_type,
-            'Earliestt year of birth':earliest_yob,
-            'Most recent year of birth':most_recent_yop,
-            'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
-
-        elif answer =='monthname':
-            calc_dict={'CITY':city,'Frequent month':frq_month,
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':'NA',
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types,
-            'Frequent gender type':gender_type,
-            'Earliestt year of birth':earliest_yob,
-            'Most recent year of birth':most_recent_yop,
-            'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
-
-        elif answer =='nofilter':
-            calc_dict={'CITY':city,
-            'Frequent month':frq_month,
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':frq_dof,
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types,
-            'Frequent gender type':gender_type,
-            'Earliestt year of birth':earliest_yob,
-            'Most recent year of birth':most_recent_yop,
-            'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='columns')
-    elif city =='washington':
-        if answer == 'both':
-            calc_dict={'CITY':city,'Frequent month':frq_month,
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':frq_dof,
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
-
-        elif answer =='day':
-            calc_dict={'CITY':city,'Frequent month':'NA',
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':frq_dof,
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
-
-        elif answer =='monthname':
-            calc_dict={'CITY':city,'Frequent month':frq_month,
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':'NA',
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
-
-        elif answer =='nofilter':
-            calc_dict={'CITY':city,
-            'Frequent month':frq_month,
-            'Frequent hour':frq_hr,
-            'Frequent day of the week':frq_dof,
-            'Frequent start station':frqSs,
-            'Frequent end station':frq_es,
-            'Frequent start station and end station':frq_sscates,
-            'Total travel time duration':tot_timedur,
-            'Average time duration':AVG_timedur,
-            'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='columns')
-
-    return calc_dataframe
-
-
-def export_to_excel(df,calc_df):
-    start_time = time.time()
-    export=input("Do you want to create a excel file?").lower()
-    if export == 'yes' or export =='y':
-        writer = pd.ExcelWriter('out.xlsx', engine='xlsxwriter')
-        df.to_excel(writer,sheet_name='data_frame')
-        calc_df.to_excel(writer,sheet_name='calculated_data_frame')
-        writer.save()
-        print("Dataframe export success in your directory!")
     print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*100)
+
+def export_to_csv(df):
+    export=input("Do you want to create a csv file?").lower()
+    if export == 'yes' or export =='y':
+        df.to_csv('out.csv')
+        print("Dataframe export success in your directory!")
 
 def display_data(df):
-    start_time = time.time()
     indx=5
     while True:
         response=input("Do you wish to view data?\n")
@@ -460,15 +323,12 @@ def display_data(df):
             indx+=5
         elif response == 'no' or response == 'n' :
             break
-    print("\nThis took %s seconds." % (time.time() - start_time))
 
 
 def main():
-
     while True:
         city, month, day,answer = get_filters()
         df = load_data(city, month, day)
-        #calc_dataframe= calc_df()
         if df.size == 0:
             print("No data found for the selection. Lets try again!")
             continue
@@ -476,11 +336,11 @@ def main():
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
-        user_stats(df)
+        if city =='chicago' or city =='new york city':
+            user_stats(df)
 
         display_data(df)
-        calculated_dataframe=calc_df()
-        export_to_excel(df,calculated_dataframe)
+        export_to_csv(df)
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() not in ['y','yes']:
             break
