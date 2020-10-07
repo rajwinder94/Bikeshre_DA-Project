@@ -4,6 +4,8 @@ import numpy as np
 import datetime as dt
 import operator
 import calendar
+import tableauserverclient as TSC
+from pandleau import *
 
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
@@ -307,9 +309,9 @@ def user_stats(df):
     print('-'*100)
 
 def export_to_csv(df):
-    export=input("Do you want to create a excel file?").lower()
+    export=input("Do you want to create a csv file?").lower()
     if export == 'yes' or export =='y':
-        df.to_excel('out.xlsx',sheet_name='data_frame')
+        df.to_csv('out.csv')
         print("Dataframe export success in your directory!")
 
 def display_data(df):
