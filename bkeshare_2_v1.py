@@ -336,7 +336,7 @@ def calc_df():
             'Earliestt year of birth':earliest_yob,
             'Most recent year of birth':most_recent_yop,
             'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
+            calc_dataframe=pd.DataFrame([calc_dict])
 
         elif answer =='day':
             calc_dict={'CITY':city,'Frequent month':'NA',
@@ -352,7 +352,7 @@ def calc_df():
             'Earliestt year of birth':earliest_yob,
             'Most recent year of birth':most_recent_yop,
             'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
+            calc_dataframe=pd.DataFrame([calc_dict])
 
         elif answer =='monthname':
             calc_dict={'CITY':city,'Frequent month':frq_month,
@@ -368,7 +368,7 @@ def calc_df():
             'Earliestt year of birth':earliest_yob,
             'Most recent year of birth':most_recent_yop,
             'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
+            calc_dataframe=pd.DataFrame([calc_dict])
 
         elif answer =='nofilter':
             calc_dict={'CITY':city,
@@ -385,7 +385,7 @@ def calc_df():
             'Earliestt year of birth':earliest_yob,
             'Most recent year of birth':most_recent_yop,
             'Most common year of birth':most_common_yob}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='columns')
+            calc_dataframe=pd.DataFrame([calc_dict])
     elif city =='washington':
         if answer == 'both':
             calc_dict={'CITY':city,'Frequent month':frq_month,
@@ -397,7 +397,7 @@ def calc_df():
             'Total travel time duration':tot_timedur,
             'Average time duration':AVG_timedur,
             'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
+            calc_dataframe=pd.DataFrame([calc_dict])
 
         elif answer =='day':
             calc_dict={'CITY':city,'Frequent month':'NA',
@@ -409,7 +409,7 @@ def calc_df():
             'Total travel time duration':tot_timedur,
             'Average time duration':AVG_timedur,
             'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
+            calc_dataframe=pd.DataFrame([calc_dict])
 
         elif answer =='monthname':
             calc_dict={'CITY':city,'Frequent month':frq_month,
@@ -421,7 +421,7 @@ def calc_df():
             'Total travel time duration':tot_timedur,
             'Average time duration':AVG_timedur,
             'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='index')
+            calc_dataframe=pd.DataFrame([calc_dict])
 
         elif answer =='nofilter':
             calc_dict={'CITY':city,
@@ -434,7 +434,7 @@ def calc_df():
             'Total travel time duration':tot_timedur,
             'Average time duration':AVG_timedur,
             'Frequent user type':user_types}
-            calc_dataframe=pd.DataFrame.from_dict(calc_dict,orient='columns')
+            calc_dataframe=pd.DataFrame([calc_dict])
 
     return calc_dataframe
 
