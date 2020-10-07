@@ -441,7 +441,7 @@ def calc_df():
 
 def export_to_excel(df,calc_df):
     start_time = time.time()
-    export=input("Do you want to create a excel file?").lower()
+    export=input("Do you want to create a excel file?\n").lower()
     if export == 'yes' or export =='y':
         writer = pd.ExcelWriter('out.xlsx', engine='xlsxwriter')
         df.to_excel(writer,sheet_name='data_frame')
@@ -454,7 +454,7 @@ def display_data(df):
     start_time = time.time()
     indx=5
     while True:
-        response=input("Do you wish to view data?\n")
+        response=input("Do you wish to view data?\n".lower())
         if response == 'yes' or response == 'y':
             print(df.iloc[0:indx, 1:9])
             indx+=5
