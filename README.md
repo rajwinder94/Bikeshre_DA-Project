@@ -6,7 +6,7 @@ ReadMe creation date: 3 October 2020.
 Bike Share Data Analysis
 
 ### Description
-Project will Analyse data collected from Bikeshare and make dataframes from that.
+Project will Analyze data collected from Bikeshare and make dataframes from that.
 Further use those dataframes and apply calculations on the data.
 
 ### Files used
